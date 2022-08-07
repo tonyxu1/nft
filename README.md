@@ -75,5 +75,129 @@ Indexes:
 ## RUN THE APPLICATION
 1. Clone the repository to your local machine.
 ```
-git clone 
+git clone https://github.com/tonyxu1/nfthomework
 ```
+2. Run the following command to start the server:
+```
+$ cd nfthomework && docker-compose up --build -d
+```
+the command will start the GraphQL server and the database. The database will be created if it does not exist. The database `nft` and all tables  will be created if it does not exist.
+
+3. After the server is started, open a Web browser and go to http://localhost:8080, and copy/past following qyery to the left panel and click on run button to see the result.
+
+
+```
+{
+  getEvents(address: "testing", fromBlock: "1", toBlock: "2") {
+    currentBlock,
+    transactions {
+      blockNumber
+      timeStamp
+      hash
+      nonce
+      blockHash
+      transactionIndex
+      from
+      to
+      value
+      gas
+      gasPrice
+      isError
+      txreceipt_status
+      input
+      contractAddress
+      cumulativeGasUsed
+      gasUsed
+      confirmations
+      methodId
+      functionName
+    },
+    trxInternal {
+      blockNumber
+      timeStamp
+      hash
+      from
+      to
+      value
+      contractAddress
+      input
+      type
+      gas
+      gasUsed
+      traceId
+      isError
+      errCode
+    },
+    trxERC20 {
+      blockNumber
+      timeStamp
+      hash
+      nonce
+      blockHash
+      from
+      contractAddress
+      to
+      value
+      tokenName
+      tokenSymbol
+      tokenDecimal
+      transactionIndex
+      gas
+      gasPrice
+      gasUsed
+      cumulativeGasUsed
+      input
+      confirmations
+    },
+    trxERC721 {
+      blockNumber
+      timeStamp
+      hash
+      nonce
+      blockHash
+      from
+      contractAddress
+      to
+      tokenID
+      tokenName
+      tokenSymbol
+      tokenDecimal
+      transactionIndex
+      gas
+      gasPrice
+      gasUsed
+      cumulativeGasUsed
+      input
+      confirmations
+    },
+    trxERC1155 {
+      blockNumber
+      timeStamp
+      hash
+      nonce
+      blockHash
+      transactionIndex
+      gas
+      gasPrice
+      gasUsed
+      cumulativeGasUsed
+      input
+      contractAddress
+      from
+      to
+      tokenID
+      tokenValue
+      tokenName
+      tokenSymbol
+      confirmations
+    }
+  }
+}
+```
+
+**Note:** The parameters are just fake data, all parameters will be read from the database.
+
+## TODOS:
+1. Unit testing
+2. Multiple contract addresses support
+3. Query the events from Database first if block number is smaller than the last read block number; otherwise, query the events from Etherscan.
